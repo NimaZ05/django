@@ -6,13 +6,13 @@
   <div class="container">
     <div class="row d-flex align-items-center justify-content-center">
       <div class="about-content col-lg-12">
-        <h1 class="text-white">Blog Details Page</h1>
-        <p class="text-white link-nav">	
+        <h1 class="text-white">{{post.title}}</h1>
+        <p class="text-white link-nav">
           <a href="{% url 'pages:index' %}">Home </a>
           <span class="lnr lnr-arrow-right"></span
           ><a href="{% url 'blog:blog' %}">Blog </a>
           <span class="lnr lnr-arrow-right"></span>
-          <a href="{% url 'blog:single' %}"> Blog Details Page</a>
+          {{post.title}}
         </p>
       </div>
     </div>
@@ -28,26 +28,32 @@
         <div class="single-post row">
           <div class="col-lg-12">
             <div class="feature-img">
-              <img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %}" alt="" />
+              <img
+                class="img-fluid"
+                src="{{post.image.url}}"
+                alt=""
+              />
             </div>
           </div>
           <div class="col-lg-3 col-md-3 meta-details">
             <ul class="tags">
-              <li><a href="#">Food,</a></li>
-              <li><a href="#">Technology,</a></li>
-              <li><a href="#">Politics,</a></li>
-              <li><a href="#">Lifestyle</a></li>
+
+              {% for cat in post.category.all %}
+              <a href="#">{{cat.name}}{% if not forloop.last %},{% endif %}
+              {% endfor %}
             </ul>
             <div class="user-details row">
               <p class="user-name col-lg-12 col-md-12 col-6">
-                <a href="#">Mark wiens</a> <span class="lnr lnr-user"></span>
+                <a href="#">{{post.author}}</a>
+                <span class="lnr lnr-user"></span>
               </p>
               <p class="date col-lg-12 col-md-12 col-6">
-                <a href="#">12 Dec, 2017</a>
+                <a href="#">{{post.published_date|date:"Y-m-d"}}</a>
                 <span class="lnr lnr-calendar-full"></span>
               </p>
               <p class="view col-lg-12 col-md-12 col-6">
-                <a href="#">1.2M Views</a> <span class="lnr lnr-eye"></span>
+                <a href="#">{{post.counted_view}} Views</a>
+                <span class="lnr lnr-eye"></span>
               </p>
               <p class="comments col-lg-12 col-md-12 col-6">
                 <a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span>
@@ -69,64 +75,8 @@
             </div>
           </div>
           <div class="col-lg-9 col-md-9">
-            <h3 class="mt-20 mb-20">
-              Astronomy Binoculars A Great Alternative
-            </h3>
-            <p class="excert">
-              MCSE boot camps have its supporters and its detractors. Some
-              people do not understand why you should have to spend money on
-              boot camp when you can get the MCSE study materials yourself at a
-              fraction.
-            </p>
-            <p>
-              Boot camps have its supporters and its detractors. Some people do
-              not understand why you should have to spend money on boot camp
-              when you can get the MCSE study materials yourself at a fraction
-              of the camp price. However, who has the willpower to actually sit
-              through a self-imposed MCSE training. who has the willpower to
-              actually sit through a self-imposed
-            </p>
-            <p>
-              Boot camps have its supporters and its detractors. Some people do
-              not understand why you should have to spend money on boot camp
-              when you can get the MCSE study materials yourself at a fraction
-              of the camp price. However, who has the willpower to actually sit
-              through a self-imposed MCSE training. who has the willpower to
-              actually sit through a self-imposed
-            </p>
-          </div>
-          <div class="col-lg-12">
-            <div class="quotes">
-              MCSE boot camps have its supporters and its detractors. Some
-              people do not understand why you should have to spend money on
-              boot camp when you can get the MCSE study materials yourself at a
-              fraction of the camp price. However, who has the willpower to
-              actually sit through a self-imposed MCSE training.
-            </div>
-            <div class="row mt-30 mb-30">
-              <div class="col-6">
-                <img class="img-fluid" src="{% static 'img/blog/post-img1.jpg' %}" alt="" />
-              </div>
-              <div class="col-6">
-                <img class="img-fluid" src="{% static 'img/blog/post-img2.jpg' %}" alt="" />
-              </div>
-              <div class="col-lg-12 mt-30">
-                <p>
-                  MCSE boot camps have its supporters and its detractors. Some
-                  people do not understand why you should have to spend money on
-                  boot camp when you can get the MCSE study materials yourself
-                  at a fraction of the camp price. However, who has the
-                  willpower.
-                </p>
-                <p>
-                  MCSE boot camps have its supporters and its detractors. Some
-                  people do not understand why you should have to spend money on
-                  boot camp when you can get the MCSE study materials yourself
-                  at a fraction of the camp price. However, who has the
-                  willpower.
-                </p>
-              </div>
-            </div>
+            <h3 class="mt-20 mb-20">{{post.title}}</h3>
+            <p class="excert">{{post.content}}</p>
           </div>
         </div>
         <div class="navigation-area">
@@ -136,7 +86,10 @@
             >
               <div class="thumb">
                 <a href="#"
-                  ><img class="img-fluid" src="{% static 'img/blog/prev.jpg' %}" alt=""
+                  ><img
+                    class="img-fluid"
+                    src="{% static 'img/blog/prev.jpg' %}"
+                    alt=""
                 /></a>
               </div>
               <div class="arrow">
@@ -145,16 +98,20 @@
                 ></a>
               </div>
               <div class="detials">
+                {% if prev_post %}
                 <p>Prev Post</p>
-                <a href="#"><h4>Space The Final Frontier</h4></a>
+                <a href="{% url 'blog:single' prev_post.pk %}"><h4>{{prev_post.title}}</h4></a>
+                {% endif %}
               </div>
             </div>
             <div
               class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center"
             >
               <div class="detials">
+                {% if next_post%}
                 <p>Next Post</p>
-                <a href="#"><h4>Telescopes 101</h4></a>
+                <a href="{% url 'blog:single' next_post.pk %}"><h4>{{next_post.title}}</h4></a>
+                {% endif %}
               </div>
               <div class="arrow">
                 <a href="#"
@@ -163,7 +120,10 @@
               </div>
               <div class="thumb">
                 <a href="#"
-                  ><img class="img-fluid" src="{% static 'img/blog/next.jpg' %}" alt=""
+                  ><img
+                    class="img-fluid"
+                    src="{% static 'img/blog/next.jpg' %}"
+                    alt=""
                 /></a>
               </div>
             </div>
@@ -321,37 +281,19 @@
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
           </div>
-          <div class="single-sidebar-widget user-info-widget">
-            <img src="{% static 'img/blog/user-info.png' %}" alt="" />
-            <a href="#"><h4>Charlie Barber</h4></a>
-            <p>Senior blog writer</p>
-            <ul class="social-links">
-              <li>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-github"></i></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-behance"></i></a>
-              </li>
-            </ul>
-            <p>
-              Boot camps have its supporters andit sdetractors. Some people do
-              not understand why you should have to spend money on boot camp
-              when you can get. Boot camps have itssuppor ters andits
-              detractors.
-            </p>
-          </div>
+          
+          {% include 'blog/blog-author.html' %}
+          
           <div class="single-sidebar-widget popular-post-widget">
             <h4 class="popular-title">Popular Posts</h4>
             <div class="popular-post-list">
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img class="img-fluid" src="{% static 'img/blog/pp1.jpg' %}" alt="" />
+                  <img
+                    class="img-fluid"
+                    src="{% static 'img/blog/pp1.jpg' %}"
+                    alt=""
+                  />
                 </div>
                 <div class="details">
                   <a href="blog-single.html"
@@ -362,7 +304,11 @@
               </div>
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img class="img-fluid" src="{% static 'img/blog/pp2.jpg' %}" alt="" />
+                  <img
+                    class="img-fluid"
+                    src="{% static 'img/blog/pp2.jpg' %}"
+                    alt=""
+                  />
                 </div>
                 <div class="details">
                   <a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
@@ -371,7 +317,11 @@
               </div>
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img class="img-fluid" src="{% static 'img/blog/pp3.jpg' %}" alt="" />
+                  <img
+                    class="img-fluid"
+                    src="{% static 'img/blog/pp3.jpg' %}"
+                    alt=""
+                  />
                 </div>
                 <div class="details">
                   <a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
@@ -380,7 +330,11 @@
               </div>
               <div class="single-post-list d-flex flex-row align-items-center">
                 <div class="thumb">
-                  <img class="img-fluid" src="{% static 'img/blog/pp4.jpg' %}" alt="" />
+                  <img
+                    class="img-fluid"
+                    src="{% static 'img/blog/pp4.jpg' %}"
+                    alt=""
+                  />
                 </div>
                 <div class="details">
                   <a href="blog-single.html"><h6>Asteroids telescope</h6></a>
@@ -391,7 +345,10 @@
           </div>
           <div class="single-sidebar-widget ads-widget">
             <a href="#"
-              ><img class="img-fluid" src="{% static 'img/blog/ads-banner.jpg' %}" alt=""
+              ><img
+                class="img-fluid"
+                src="{% static 'img/blog/ads-banner.jpg' %}"
+                alt=""
             /></a>
           </div>
           <div class="single-sidebar-widget post-category-widget">
