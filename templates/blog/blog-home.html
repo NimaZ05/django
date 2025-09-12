@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load static %} {% load blog_tags %} {% block content %}
 <!-- start banner Area -->
 <section class="banner-area relative blog-home-banner" id="home">
   <div class="overlay overlay-bg"></div>
@@ -100,8 +100,8 @@
           <div class="col-lg-3 col-md-3 meta-details">
             <ul class="tags">
               {% for cat in post.category.all %}
-              <li><a href="#">{{cat.name}}</a></li>{% if not forloop.last %},{% endif %}
-              {% endfor %}            
+              <li><a href="{% url 'blog:category' cat_name=cat.name %}">{{cat.name}}</a></li>
+              {% if not forloop.last %},{% endif %} {% endfor %}
             </ul>
             <div class="user-details row">
               <p class="user-name col-lg-12 col-md-12 col-6">
@@ -130,7 +130,9 @@
               ><h3>{{post.title}}</h3></a
             >
             <p class="excert">{{post.content|truncatewords:40}}</p>
-            <a href="{% url 'blog:single' pid=post.id %}" class="primary-btn">View More</a>
+            <a href="{% url 'blog:single' pid=post.id %}" class="primary-btn"
+              >View More</a
+            >
           </div>
         </div>
         {% endfor %}
@@ -176,120 +178,11 @@
             </form>
           </div>
           {% include 'blog/blog-author.html' %}
-          <div class="single-sidebar-widget popular-post-widget">
-            <h4 class="popular-title">Popular Posts</h4>
-            <div class="popular-post-list">
-              <div class="single-post-list d-flex flex-row align-items-center">
-                <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp1.jpg' %}"
-                    alt=""
-                  />
-                </div>
-                <div class="details">
-                  <a href="blog-single.html"
-                    ><h6>Space The Final Frontier</h6></a
-                  >
-                  <p>02 Hours ago</p>
-                </div>
-              </div>
-              <div class="single-post-list d-flex flex-row align-items-center">
-                <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp2.jpg' %}"
-                    alt=""
-                  />
-                </div>
-                <div class="details">
-                  <a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-                  <p>02 Hours ago</p>
-                </div>
-              </div>
-              <div class="single-post-list d-flex flex-row align-items-center">
-                <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp3.jpg' %}"
-                    alt=""
-                  />
-                </div>
-                <div class="details">
-                  <a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-                  <p>02 Hours ago</p>
-                </div>
-              </div>
-              <div class="single-post-list d-flex flex-row align-items-center">
-                <div class="thumb">
-                  <img
-                    class="img-fluid"
-                    src="{% static 'img/blog/pp4.jpg' %}"
-                    alt=""
-                  />
-                </div>
-                <div class="details">
-                  <a href="blog-single.html"><h6>Asteroids telescope</h6></a>
-                  <p>02 Hours ago</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="single-sidebar-widget ads-widget">
-            <a href="#"
-              ><img
-                class="img-fluid"
-                src="{% static 'img/blog/ads-banner.jpg' %}"
-                alt=""
-            /></a>
-          </div>
-          <div class="single-sidebar-widget post-category-widget">
-            <h4 class="category-title">Post Catgories</h4>
-            <ul class="cat-list">
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Technology</p>
-                  <p>37</p>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Lifestyle</p>
-                  <p>24</p>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Fashion</p>
-                  <p>59</p>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Art</p>
-                  <p>29</p>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Food</p>
-                  <p>15</p>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Architecture</p>
-                  <p>09</p>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="d-flex justify-content-between">
-                  <p>Adventure</p>
-                  <p>44</p>
-                </a>
-              </li>
-            </ul>
-          </div>
+                    
+          {% include 'blog/blog-post-ads.html' %}
+
+          {% postcategories %}
+
           <div class="single-sidebar-widget newsletter-widget">
             <h4 class="newsletter-title">Newsletter</h4>
             <p>
