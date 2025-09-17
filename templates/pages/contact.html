@@ -29,8 +29,8 @@
             <span class="lnr lnr-home"></span>
           </div>
           <div class="contact-details">
-            <h5>Binghamton, New York</h5>
-            <p>4343 Hinkle Deegan Lake Road</p>
+            <h5>Karaj, Iran</h5>
+            <p>Arghavan St. P53 V5</p>
           </div>
         </div>
         <div class="single-contact-address d-flex flex-row">
@@ -38,8 +38,8 @@
             <span class="lnr lnr-phone-handset"></span>
           </div>
           <div class="contact-details">
-            <h5>00 (958) 9865 562</h5>
-            <p>Mon to Fri 9am to 6 pm</p>
+            <h5>+98 919 094 4573</h5>
+            <p>All day from 8 To 20</p>
           </div>
         </div>
         <div class="single-contact-address d-flex flex-row">
@@ -47,7 +47,7 @@
             <span class="lnr lnr-envelope"></span>
           </div>
           <div class="contact-details">
-            <h5>support@colorlib.com</h5>
+            <h5>nimaz2138487@gmail.com</h5>
             <p>Send us your query anytime!</p>
           </div>
         </div>
@@ -55,11 +55,11 @@
       <div class="col-lg-8">
         <form
           class="form-area contact-form text-right"
-          id="myForm"
-          action="mail.php"
+          action="{% url 'pages:contact'  %}"
           method="post"
         >
           <div class="row">
+            {% csrf_token %}
             <div class="col-lg-6 form-group">
               <input
                 name="name"
@@ -104,13 +104,36 @@
             </div>
             <div class="col-lg-12">
               <div class="alert-msg" style="text-align: left"></div>
-              <button class="genric-btn primary" style="float: right">
+              <button tyoe="submit" class="genric-btn primary" style="float: right">
                 Send Message
               </button>
             </div>
           </div>
         </form>
       </div>
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+                {% endfor %}
+            {% endif %}
+
+  {% if form.errors %}
+            <div class="alert alert-error">
+            <h4>Please fix the following errors</h4>
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <li><a href="#id_{{ field.name }}" class="error">{{ error|escape }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% if form.non_field_errors %}
+                {{ form.non_field_errors }}
+            {% endif %}
+            </div>
+  {% endif %}
     </div>
   </div>
 </section>
