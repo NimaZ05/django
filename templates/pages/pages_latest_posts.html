@@ -23,9 +23,13 @@
           <div class="details">
             <div class="tags">
               <ul>
-                <li>
-                  <a href="#">Travel</a>
-                </li>
+                {% for tag in post.tags.all %}
+                    <li>
+                      <a href="{% url 'blog:tag' tag_name=tag.name %}">{{ tag.name }}</a>
+                    </li>
+                {% empty %}
+                    <li>No tags</li>
+                {% endfor %}
               </ul>
             </div>
             <a href="{% url 'blog:single' pid=post.id %}"><h4 class="title">{{post.title}}</h4></a>

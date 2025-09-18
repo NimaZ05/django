@@ -22,7 +22,7 @@ def contact_view(request):
                                  'your ticket submited successfully')
         else:
             messages.add_message(request, messages.ERROR,
-                                 'your ticket didnt submited')
+                                 'your ticket didnt submited ')
 
     form = ContactForm()
     return render(request, 'pages/contact.html', {'form': form})
@@ -33,9 +33,13 @@ def newsletter_view(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect("/")
+            messages.add_message(request, messages.SUCCESS,
+                                 'your ticket submited successfully')
         else:
-            return HttpResponseRedirect("/")
+            messages.add_message(request, messages.ERROR,
+                                 'your ticket didnt submited ')
+        return HttpResponseRedirect("/")
+
 
 
 def test(request):

@@ -5,7 +5,7 @@ from .models import Contact, Newsletter
 class NameForm(forms.Form):
     name = forms.CharField(max_length=255)
     email = forms.EmailField()
-    subject = forms.CharField(max_length=100)
+    subject = forms.CharField(max_length=100, required=False)
     message = forms.CharField(widget=forms.Textarea)
 
 

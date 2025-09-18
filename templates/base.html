@@ -1,6 +1,7 @@
 {% load static %}
 {% load blog_tags %}
 
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
   <head>
@@ -213,5 +214,19 @@
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/mail-script.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+    {% if messages %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  {% for message in messages %}
+    Swal.fire({
+      title: "{{ message.tags|capfirst }}",
+      text: "{{ message|escapejs }}",
+      icon: "{% if 'error' in message.tags %}error{% elif 'success' in message.tags %}success{% else %}info{% endif %}",
+      confirmButtonText: "Ok"
+    });
+  {% endfor %}
+</script>
+    {% endif %}
   </body>
 </html>
