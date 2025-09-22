@@ -176,7 +176,7 @@ humanize %} {% block content %}
             <div class="single-comment justify-content-between d-flex">
               <div class="user justify-content-between d-flex">
                 <div class="thumb">
-                  <img src="{% static 'img/blog/c1.jpg' %}" alt="" />
+                  <img src="" alt="" />
                 </div>
                 <div class="desc">
                   <h5><a href="#">{{comment.name}}</a></h5>
@@ -268,9 +268,11 @@ humanize %} {% block content %}
             </form>
           </div>
 
-          {% include 'blog/blog-author.html' %} {% include
-          'blog/blog-tags.html'%} {% latestposts %} {% include
-          'blog/blog-post-ads.html' %} {% postcategories %}
+                {% include 'blog/blog-author.html' %}
+                {% include 'blog/blog-tags.html'%}
+                {% latestposts %} 
+                {% include 'blog/blog-post-ads.html' %} 
+                {% postcategories %}
 
           <div class="single-sidebar-widget newsletter-widget">
             <h4 class="newsletter-title">Newsletter</h4>
