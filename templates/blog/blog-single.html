@@ -1,10 +1,11 @@
-{% extends "base.html" %} {% load static %} {% load blog_tags %} {% load humanize %} {% block content %}
+{% extends "base.html" %} {% load static %} {% load blog_tags %} {% load
+humanize %} {% block content %}
 
 <!-- start banner Area -->
 <section class="relative about-banner">
   <div class="overlay overlay-bg"></div>
   <div class="container">
-    <div class="row d-flex align-items-center justify-content-center">  
+    <div class="row d-flex align-items-center justify-content-center">
       <div class="about-content col-lg-12">
         <h1 class="text-white">{{post.title}}</h1>
         <p class="text-white link-nav">
@@ -28,23 +29,24 @@
         <div class="single-post row">
           <div class="col-lg-12">
             <div class="feature-img">
-              <img
-                class="img-fluid"
-                src="{{post.image.url}}"
-                alt=""
-              />
+              <img class="img-fluid" src="{{post.image.url}}" alt="" />
             </div>
           </div>
           <div class="col-lg-3 col-md-3 meta-details">
             <ul class="tags">
-
               {% for cat in post.category.all %}
-              <a href="{% url 'blog:category' cat_name=cat.name %}">{{cat.name}}{% if not forloop.last %},{% endif %}
+              <li>
+                <a href="{% url 'blog:category' cat_name=cat.name %}"
+                  >{{ cat.name }}</a
+                >{% if not forloop.last %},{% endif %}
+              </li>
               {% endfor %}
             </ul>
             <div class="user-details row">
               <p class="user-name col-lg-12 col-md-12 col-6">
-                <a href="{% url 'blog:author' author_username=post.author %}">{{post.author}}</a>
+                <a href="{% url 'blog:author' author_username=post.author %}"
+                  >{{post.author}}</a
+                >
                 <span class="lnr lnr-user"></span>
               </p>
               <p class="date col-lg-12 col-md-12 col-6">
@@ -56,7 +58,8 @@
                 <span class="lnr lnr-eye"></span>
               </p>
               <p class="comments col-lg-12 col-md-12 col-6">
-                <a href="#">06 Comments</a> <span class="lnr lnr-bubble"></span>
+                <a href="#">{{comments|length}} Comments</a>
+                <span class="lnr lnr-bubble"></span>
               </p>
               <ul class="social-links col-lg-12 col-md-12 col-6">
                 <li>
@@ -76,7 +79,7 @@
           </div>
           <div class="col-lg-9 col-md-9">
             <h3 class="mt-20 mb-20">{{post.title}}</h3>
-            <p class="excert">{{post.content}}</p>
+            <p class="excert">{{post.content|safe}}</p>
           </div>
         </div>
         <div class="navigation-area">
@@ -84,148 +87,127 @@
             <div
               class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center"
             >
+              {% if prev_post %}
               <div class="thumb">
-                <a href="#"
-                  ><img
+                <a href="{% url 'blog:single' prev_post.pk %}">
+                  <img
                     class="img-fluid"
-                    src="{% static 'img/blog/prev.jpg' %}"
-                    alt=""
-                /></a>
+                    src="{{ prev_post.image.url }}"
+                    alt="{{ prev_post.title }}"
+                  />
+                </a>
               </div>
               <div class="arrow">
-                <a href="#"
-                  ><span class="lnr text-white lnr-arrow-left"></span
-                ></a>
+                <a href="{% url 'blog:single' prev_post.pk %}">
+                  <span class="lnr text-white lnr-arrow-left"></span>
+                </a>
               </div>
               <div class="detials">
-                {% if prev_post %}
                 <p>Prev Post</p>
-                <a href="{% url 'blog:single' prev_post.pk %}"><h4>{{prev_post.title}}</h4></a>
-                {% endif %}
+                <a href="{% url 'blog:single' prev_post.pk %}">
+                  <h4>{{prev_post.title}}</h4>
+                </a>
               </div>
+              {% endif %}
             </div>
             <div
               class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center"
             >
+              {% if next_post %}
               <div class="detials">
-                {% if next_post%}
                 <p>Next Post</p>
-                <a href="{% url 'blog:single' next_post.pk %}"><h4>{{next_post.title}}</h4></a>
-                {% endif %}
+                <a href="{% url 'blog:single' next_post.pk %}">
+                  <h4>{{next_post.title}}</h4>
+                </a>
               </div>
               <div class="arrow">
-                <a href="#"
-                  ><span class="lnr text-white lnr-arrow-right"></span
-                ></a>
+                <a href="{% url 'blog:single' next_post.pk %}">
+                  <span class="lnr text-white lnr-arrow-right"></span>
+                </a>
               </div>
               <div class="thumb">
-                <a href="#"
-                  ><img
+                <a href="{% url 'blog:single' next_post.pk %}">
+                  <img
                     class="img-fluid"
-                    src="{% static 'img/blog/next.jpg' %}"
-                    alt=""
-                /></a>
+                    src="{{ next_post.image.url }}"
+                    alt="{{ next_post.title }}"
+                  />
+                </a>
               </div>
+              {% endif %}
             </div>
           </div>
         </div>
+
+        {% comment %}
+        <div class="comment-area">
+          <div id="disqus_thread"></div>
+          <script>
+            /**
+             *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+            /*
+                        var disqus_config = function () {
+                        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+            (function () {
+              // DON'T EDIT BELOW THIS LINE
+              var d = document,
+                s = d.createElement("script");
+              s.src = "https://127-0-0-1-8000-9xbsrd8mq3.disqus.com/embed.js";
+              s.setAttribute("data-timestamp", +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript
+            >Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript"
+              >comments powered by Disqus.</a
+            ></noscript
+          >
+        </div>
+        {% endcomment %}
         <div class="comments-area">
-          <h4>05 Comments</h4>
+          <h4>{{comments|length}} Comments</h4>
           <div class="comment-list">
+            {% for comment in comments %}
             <div class="single-comment justify-content-between d-flex">
               <div class="user justify-content-between d-flex">
                 <div class="thumb">
                   <img src="{% static 'img/blog/c1.jpg' %}" alt="" />
                 </div>
                 <div class="desc">
-                  <h5><a href="#">Emilly Blunt</a></h5>
-                  <p class="date">December 4, 2017 at 3:12 pm</p>
-                  <p class="comment">Never say goodbye till the end comes!</p>
+                  <h5><a href="#">{{comment.name}}</a></h5>
+                  <p class="date">{{comment.created_date}}</p>
+                  <p class="comment">{{comment.message}}</p>
                 </div>
               </div>
+              {% comment %}
               <div class="reply-btn">
                 <a href="" class="btn-reply text-uppercase">reply</a>
               </div>
+              {% endcomment %}
             </div>
-          </div>
-          <div class="comment-list left-padding">
-            <div class="single-comment justify-content-between d-flex">
-              <div class="user justify-content-between d-flex">
-                <div class="thumb">
-                  <img src="{% static 'img/blog/c2.jpg' %}" alt="" />
-                </div>
-                <div class="desc">
-                  <h5><a href="#">Elsie Cunningham</a></h5>
-                  <p class="date">December 4, 2017 at 3:12 pm</p>
-                  <p class="comment">Never say goodbye till the end comes!</p>
-                </div>
-              </div>
-              <div class="reply-btn">
-                <a href="" class="btn-reply text-uppercase">reply</a>
-              </div>
-            </div>
-          </div>
-          <div class="comment-list left-padding">
-            <div class="single-comment justify-content-between d-flex">
-              <div class="user justify-content-between d-flex">
-                <div class="thumb">
-                  <img src="{% static 'img/blog/c3.jpg' %}" alt="" />
-                </div>
-                <div class="desc">
-                  <h5><a href="#">Annie Stephens</a></h5>
-                  <p class="date">December 4, 2017 at 3:12 pm</p>
-                  <p class="comment">Never say goodbye till the end comes!</p>
-                </div>
-              </div>
-              <div class="reply-btn">
-                <a href="" class="btn-reply text-uppercase">reply</a>
-              </div>
-            </div>
-          </div>
-          <div class="comment-list">
-            <div class="single-comment justify-content-between d-flex">
-              <div class="user justify-content-between d-flex">
-                <div class="thumb">
-                  <img src="{% static 'img/blog/c4.jpg' %}" alt="" />
-                </div>
-                <div class="desc">
-                  <h5><a href="#">Maria Luna</a></h5>
-                  <p class="date">December 4, 2017 at 3:12 pm</p>
-                  <p class="comment">Never say goodbye till the end comes!</p>
-                </div>
-              </div>
-              <div class="reply-btn">
-                <a href="" class="btn-reply text-uppercase">reply</a>
-              </div>
-            </div>
-          </div>
-          <div class="comment-list">
-            <div class="single-comment justify-content-between d-flex">
-              <div class="user justify-content-between d-flex">
-                <div class="thumb">
-                  <img src="{% static 'img/blog/c5.jpg' %}" alt="" />
-                </div>
-                <div class="desc">
-                  <h5><a href="#">Ina Hayes</a></h5>
-                  <p class="date">December 4, 2017 at 3:12 pm</p>
-                  <p class="comment">Never say goodbye till the end comes!</p>
-                </div>
-              </div>
-              <div class="reply-btn">
-                <a href="" class="btn-reply text-uppercase">reply</a>
-              </div>
-            </div>
+            {% empty %}
+            <p>no comments here</p>
+            {% endfor %}
           </div>
         </div>
+
         <div class="comment-form">
           <h4>Leave a Comment</h4>
-          <form>
+          <form method="post" action="{% url 'blog:single' pid=post.id %}">
+            {% csrf_token %}
             <div class="form-group form-inline">
+              <input type="hidden" name='post' value={{post.id}} />
               <div class="form-group col-lg-6 col-md-12 name">
                 <input
                   type="text"
                   class="form-control"
                   id="name"
+                  name="name"
                   placeholder="Enter Name"
                   onfocus="this.placeholder = ''"
                   onblur="this.placeholder = 'Enter Name'"
@@ -236,6 +218,7 @@
                   type="email"
                   class="form-control"
                   id="email"
+                  name="email"
                   placeholder="Enter email address"
                   onfocus="this.placeholder = ''"
                   onblur="this.placeholder = 'Enter email address'"
@@ -247,6 +230,7 @@
                 type="text"
                 class="form-control"
                 id="subject"
+                name="subject"
                 placeholder="Subject"
                 onfocus="this.placeholder = ''"
                 onblur="this.placeholder = 'Subject'"
@@ -263,7 +247,9 @@
                 required=""
               ></textarea>
             </div>
-            <a href="#" class="primary-btn text-uppercase">Post Comment</a>
+            <button type="submit" class="primary-btn text-uppercase">
+              Post Comment
+            </button>
           </form>
         </div>
       </div>
@@ -281,16 +267,10 @@
               <button type="submit"><i class="fa fa-search"></i></button>
             </form>
           </div>
-          
-          {% include 'blog/blog-author.html' %}
 
-          {% include 'blog/blog-tags.html' with post=post %}
-
-          {% latestposts %}
-          
-          {% include 'blog/blog-post-ads.html' %}
-
-          {% postcategories %}
+          {% include 'blog/blog-author.html' %} {% include
+          'blog/blog-tags.html'%} {% latestposts %} {% include
+          'blog/blog-post-ads.html' %} {% postcategories %}
 
           <div class="single-sidebar-widget newsletter-widget">
             <h4 class="newsletter-title">Newsletter</h4>
@@ -313,6 +293,7 @@
                     placeholder="Enter email"
                     onfocus="this.placeholder = ''"
                     onblur="this.placeholder = 'Enter email'"
+                    required
                   />
                 </div>
               </div>

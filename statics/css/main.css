@@ -2997,7 +2997,33 @@ body.mobile-nav-active #mobile-nav-toggle {
 .recent-blog-area .single-recent-blog-post:hover .thumb img {
   transform: scale(1.05);
 }
+/* Balance recent blog posts */
+.single-recent-blog-post {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
+.single-recent-blog-post .thumb img {
+  width: 100%;
+  height: 220px;      /* fixed image height */
+  object-fit: cover;  /* crop instead of stretch */
+}
+
+.single-recent-blog-post .details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+/* Balance text block */
+.single-recent-blog-post .details p {
+  min-height: 60px;   /* ensures consistent text area */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /*--------- end recent-blog Area -------------*/
 /*-------- Start Common Page Style   -------------*/
 .link-nav {
@@ -3559,6 +3585,19 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-bottom: none;
   margin-bottom: 0px;
 }
+.single-sidebar-widget .popular-post-list .thumb {
+  width: 150px;     /* fixed width */
+  height: auto;    /* fixed height */
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.single-sidebar-widget .popular-post-list .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* crop nicely while keeping aspect ratio */
+  display: block;
+}
 
 .widget-wrap .search-widget form.search-form input[type=text] {
   color: #fff;
@@ -3892,6 +3931,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 .single-post-area .navigation-area {
   border-top: 1px solid #eee;
   padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .single-post-area .navigation-area .nav-left {
@@ -3970,6 +4010,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   .single-post-area .sidebar-widgets {
     padding-bottom: 0px;
   }
+}
+.single-post-area .navigation-area .thumb img {
+  max-width: 150px;
+  height: auto;
 }
 
 .comments-area {
@@ -4332,6 +4376,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .instafeed li img {
   margin: 5px;
+  max-width: 60px;
+  height: auto;
 }
 
 .footer-social {

@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="col-lg-3 col-md-6 col-sm-6">
+  <div class="single-footer-widget mail-chimp">
+    <h6 class="mb-20">InstaFeed</h6>
+    <ul class="instafeed d-flex flex-wrap">
+      {% for post in latest_posts %} {% if post.image %}
+      <li>
+        <a href="{{ post.get_absolute_url }}">
+          <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+        </a>
+      </li>
+      {% endif %} {% endfor %}
+    </ul>
+  </div>
+</div>

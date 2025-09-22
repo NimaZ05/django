@@ -1,12 +1,15 @@
 from django.shortcuts import redirect, render
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import NameForm, ContactForm, NewsletterForm
+from .forms import ContactForm, NewsletterForm
 from django.contrib import messages
+from blog.models import Post
 
 
 def home_view(request):
-    return render(request, 'pages/index.html')
+    latest_posts = Post.objects.order_by('-created_date')[:8]
+    context = {'latest_posts':latest_posts}
+    return render(request, 'pages/index.html', context)
 
 
 def about_view(request):
@@ -18,14 +21,13 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'your ticket submited successfully')
+            messages.success(request, 'your ticket submited successfully')
         else:
-            messages.add_message(request, messages.ERROR,
-                                 'your ticket didnt submited ')
+            messages.error(request, 'your ticket didnt submited ')
 
     form = ContactForm()
-    return render(request, 'pages/contact.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'pages/contact.html', context)
 
 
 def newsletter_view(request):
@@ -33,13 +35,10 @@ def newsletter_view(request):
         form = NewsletterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'your ticket submited successfully')
+            messages.success(request, 'your ticket submited successfully')
         else:
-            messages.add_message(request, messages.ERROR,
-                                 'your ticket didnt submited ')
+            messages.error(request, 'your ticket didnt submited ')
         return HttpResponseRedirect("/")
-
 
 
 def test(request):

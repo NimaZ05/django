@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,10 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'debug_toolbar',
     
-    
+    'django_summernote',
     'robots',
     'django_extensions',
     'taggit',
+    'captcha',
     
     'pages.apps.PagesConfig',
     'blog.apps.BlogConfig',
@@ -57,6 +59,38 @@ SITE_ID = 2
 # django robots framework
 ROBOTS_USE_HOST = False
 ROBOTS_USE_SITEMAP = False
+
+# summernote configs
+SUMMERNOTE_THEME = 'bs5' 
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+    
+    # You can put custom Summernote settings
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+        # Change editor size
+        
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+    },
+}
+
+# admin captcha setting
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -152,3 +186,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
