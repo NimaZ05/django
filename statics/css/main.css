@@ -2483,7 +2483,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 /*-------- Start Banner Area ------------*/
 .banner-area {
-  background: url(../img/hero-bg.jpg) center;
+  background: url(../img/bg2.jpg) center;
   background-size: cover;
 }
 
@@ -3418,7 +3418,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .post-content-area .single-post .meta-details .tags {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .post-content-area .single-post .meta-details .tags li {

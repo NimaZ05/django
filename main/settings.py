@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     
     'pages.apps.PagesConfig',
     'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig'
 
 ]
 # sitest framework

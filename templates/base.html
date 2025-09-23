@@ -25,9 +25,7 @@
       href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
       rel="stylesheet"
     />
-    <!--
-			CSS
-			============================================= -->
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/linearicons.css' %}" />
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
@@ -43,7 +41,7 @@
       <div class="header-top">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-6 col-sm-6 col-6 header-top-left">
+            {% comment %} <div class="col-lg-6 col-sm-6 col-6 header-top-left">
               <ul>
                 <li><a href="#">Visit Us</a></li>
                 <li><a href="#">Buy Tickets</a></li>
@@ -55,7 +53,7 @@
                 <a href="#"><i class="fa fa-twitter"></i></a>
                 <a href="#"><i class="fa fa-dribbble"></i></a>
                 <a href="#"><i class="fa fa-behance"></i></a>
-              </div>
+              </div> {% endcomment %}
             </div>
           </div>
         </div>
@@ -73,6 +71,8 @@
               <li><a href="{% url 'pages:about' %}">About</a></li>
               <li><a href="{% url 'blog:blog' %}">Blog</a></li>
               <li><a href="{% url 'pages:contact' %}">Contact</a></li>
+              <li><a href="{% url 'accounts:signup' %}">signup</a></li>
+              <li><a href="{% url 'accounts:login' %}">login</a></li>
             </ul>
           </nav>
           <!-- #nav-menu-container -->
