@@ -6,11 +6,19 @@
     {% for post in posts %}
     <div class="single-post-list d-flex flex-row align-items-center">
       <div class="thumb">
-        <img class="img-fluid" src={{post.image.url}} alt="Blog image about {{post.title}}" />
+        <img
+          class="img-fluid"
+          src="{{post.image.url}}"
+          alt="Blog image about {{post.title}}"
+        />
       </div>
       <div class="details">
-        <a href="{% url 'blog:single' pid=post.id %}"><h6>{{post.title}}</h6></a>
-        <p>{{post.published_date|naturaltime}}</p>
+        <a href="{% url 'blog:single' pid=post.id %}"
+          ><h6>{{post.title}}</h6></a
+        >
+        <p>
+          {{post.published_date|naturalday}}
+        </p>
       </div>
     </div>
     {% endfor %}

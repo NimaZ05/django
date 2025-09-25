@@ -41,19 +41,24 @@
       <div class="header-top">
         <div class="container">
           <div class="row align-items-center">
-            {% comment %} <div class="col-lg-6 col-sm-6 col-6 header-top-left">
+             <div class="col-lg-6 col-sm-6 col-6 header-top-left">
               <ul>
-                <li><a href="#">Visit Us</a></li>
-                <li><a href="#">Buy Tickets</a></li>
+                {% if request.user.is_authenticated %}
+                    <li>Logged in as {{request.user.username}}</li>
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+                    <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                {% endif %}             
               </ul>
             </div>
-            <div class="col-lg-6 col-sm-6 col-6 header-top-right">
+            {% comment %} <div class="col-lg-6 col-sm-6 col-6 header-top-right">
               <div class="header-social">
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
                 <a href="#"><i class="fa fa-dribbble"></i></a>
                 <a href="#"><i class="fa fa-behance"></i></a>
-              </div> {% endcomment %}
+              </div>  {% endcomment %}
             </div>
           </div>
         </div>
@@ -71,8 +76,7 @@
               <li><a href="{% url 'pages:about' %}">About</a></li>
               <li><a href="{% url 'blog:blog' %}">Blog</a></li>
               <li><a href="{% url 'pages:contact' %}">Contact</a></li>
-              <li><a href="{% url 'accounts:signup' %}">signup</a></li>
-              <li><a href="{% url 'accounts:login' %}">login</a></li>
+
             </ul>
           </nav>
           <!-- #nav-menu-container -->
@@ -181,6 +185,7 @@
 
     <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/popper.js' %}"></script>
     <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
     <script src="{% static 'js/jquery-ui.js' %}"></script>

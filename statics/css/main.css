@@ -2043,6 +2043,7 @@ h1, h2, h3, h4, h5, h6 {
 .header-top {
   font-size: 12px;
   padding: 6px 0px;
+  color: #fff;
 }
 
 .header-top a {

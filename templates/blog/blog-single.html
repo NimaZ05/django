@@ -187,7 +187,8 @@ humanize %} {% block content %}
           <form method="post" action="{% url 'blog:single' pid=post.id %}">
             {% csrf_token %}
             <div class="form-group form-inline">
-              <input type="hidden" name='post' value={{post.id}} />
+              <input type="hidden" name="post" value="{{post.id}}" />
+
               <div class="form-group col-lg-6 col-md-12 name">
                 <input
                   type="text"
@@ -211,6 +212,7 @@ humanize %} {% block content %}
                 />
               </div>
             </div>
+
             <div class="form-group">
               <input
                 type="text"
@@ -254,11 +256,11 @@ humanize %} {% block content %}
             </form>
           </div>
 
-                {% include 'blog/blog-author.html' %}
-                {% include 'blog/blog-tags.html'%}
-                {% latestposts %} 
-                {% include 'blog/blog-post-ads.html' %} 
-                {% postcategories %}
+                    {% include 'blog/blog-author.html' %}
+                    {% include 'blog/blog-tags.html'%}
+                    {% latestposts %}
+                    {% include 'blog/blog-post-ads.html' %}
+                    {% postcategories %}
 
           <div class="single-sidebar-widget newsletter-widget">
             <h4 class="newsletter-title">Newsletter</h4>

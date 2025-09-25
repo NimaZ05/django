@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'taggit',
     'captcha',
+    'widget_tweaks',
     
     'pages.apps.PagesConfig',
     'blog.apps.BlogConfig',
@@ -189,3 +190,5 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
+
+LOGIN_URL = 'accounts:login'
