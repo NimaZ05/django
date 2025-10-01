@@ -1,4 +1,4 @@
-{% extends "accounts/main-login.html" %}
+{% extends "accounts/base.html" %}
 {% load static %}
 {% block title%}Login{% endblock title %} 
 {% block content %}
@@ -25,7 +25,7 @@
                   type="text"
                   name="username"
                   class="form-control"
-                  placeholder="Username"
+                  placeholder="Username or Email"
                   required
                 />
               </div>

@@ -51,7 +51,7 @@ def blog_single(request, pid):
     next_post = Post.objects.filter(pk__gt=post.pk).order_by('pk').first()
     prev_post = Post.objects.filter(pk__lt=post.pk).order_by('-pk').first()
     
-    if  not post.login_require:        
+    if not post.login_require:        
         comments = Comment.objects.filter(post=post.id, approved=True)
         form = CommentForm()
         context = {

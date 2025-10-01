@@ -1,7 +1,7 @@
-{% extends "accounts/main-login.html" %}
- {% load static %} 
- {% block title%}Signup{% endblock title %}
- {% block content %}
+{% extends "accounts/base.html" %}
+ {% load static %}
+  {% block title%}Signup{%endblock title %}
+   {% block content %}
 
 <body
   class="img js-fullheight"
@@ -33,7 +33,6 @@
                   required
                 />
               </div>
-              {% comment %}
               <div class="form-group">
                 <input
                   id="email-field"
@@ -44,8 +43,6 @@
                   required
                 />
               </div>
-              {% endcomment %}
-
               <div class="form-group">
                 <input
                   id="password-field"
