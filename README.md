@@ -34,7 +34,7 @@ You'll need:
 1.  **Clone the Repository**
 
     ```bash
-    git clone [https://github.com/NimaZ05/django.git](https://github.com/NimaZ05/django.git)
+    git clone [https://github.com/NimaZ05/Django_Blog.git](https://github.com/NimaZ05/Django_Blog.git)
     cd django
     ```
 
